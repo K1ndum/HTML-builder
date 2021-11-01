@@ -13,11 +13,12 @@ const files = fs.readdir(folderPath, { withFileTypes: true },
     files.forEach(file => {
       if (file.isFile()) {
         const pathToFile = path.join(__dirname, `secret-folder/${file.name}`)
-        stats = fs.statSync(pathToFile);
-        f = path.parse(file.name);
-        console.log(
-          `${f.name} - ${f.ext.slice(1)} - ${Math.ceil(stats.size / 1024)}kb`
-        )
+        fileInf = path.parse(file.name);
+        let fileName = fileInf.name;
+        let fileExt = fileInf.ext.slice(1);
+        fs.stat(pathToFile, (err, stats) => {
+          console.log(`${fileName} - ${fileExt} - ${Math.ceil(stats.size / 1024)}kb `)
+        });
       }
     })
   }
