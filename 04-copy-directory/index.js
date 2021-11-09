@@ -1,8 +1,13 @@
 let fs = require('fs');
 const path = require('path');
+const {rm} = require('fs/promises')
 
 const folder = path.join(__dirname, 'files');
 const folderCopy = path.join(__dirname, 'files-copy');
+
+const delDir = async () => {
+  await rm(folderCopy, {recursive: true, force: true});
+}
 
 function copyDir() {
   const files = fs.readdir(folder, { withFileTypes: true },
@@ -36,4 +41,9 @@ function copyDir() {
   })
 } 
 
-copyDir();
+const start = async () => {
+  await delDir();
+  await copyDir();
+}
+
+start();
