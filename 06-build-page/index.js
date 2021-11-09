@@ -45,7 +45,7 @@ function bundle() {
           const filePath = path.join(__dirname, 'styles', file.name);
           const readStream = fs.createReadStream(filePath, 'utf-8');
           let text = ''
-          readStream.on('data', (data) => text += data);
+          readStream.on('data', (data) => text += data.trim() + '\n');
           readStream.on('end', () => fs.appendFile(fileBundle, text, () => ''));
         }
       })
