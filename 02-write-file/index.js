@@ -9,6 +9,11 @@ process.on('beforeExit', () => sayBye())
 const filePath = path.join(__dirname, 'text.txt')
 let writebleStream = null;
 
+fs.open(filePath, 'w', (err) => {
+  if(err) throw err;
+  console.log('File created');
+});
+
 rl.on('line', (input) => {
   if (writebleStream == null) {
     writebleStream = fs.createWriteStream(filePath);
